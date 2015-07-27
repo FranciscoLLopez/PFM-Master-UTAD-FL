@@ -155,7 +155,7 @@ object testKmeans {
     val parseFunction = functions.buildCategoricalAndLabelFunction(rawData)
     val originalAndData = rawData.map(line => (line, parseFunction(line)._2))
     val data = originalAndData.values
-    val calcPCA = functions.calculatePCA(data, 15)
+    val calcPCA = functions.calculatePCA(data, numVarPCA)
     val normalizeFunction = functions.buildNormalizationFunction(calcPCA)
     val kValue = functions.stats4K(calcPCA)
     val anomalyDetector = buildAnomalyDetector(data, normalizeFunction)

@@ -61,6 +61,3 @@ Scala is an object-functional programming language for general software applicat
 
 A general-purpose computer programming language designed to produce programs that will run on any computer system.
 
-
-
-# PFM-UTAD-FL

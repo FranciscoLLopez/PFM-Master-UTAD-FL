@@ -10,6 +10,7 @@ import org.apache.spark.mllib.linalg._
 import org.apache.spark.mllib.feature.{ HashingTF, StandardScaler }
 import org.utad.flopez.kmeans.functions._
 import org.utad.flopez.kmeans.filesOps.printToFile
+import scala.util.{ Random, Try }
 
 /**
  * @author flopez
@@ -52,7 +53,7 @@ object mySkmeansHdfs2 {
         
         val scaledData = new StandardScaler(false, true).fit(original).transform(original)
 
-        model.latestModel.update(scaledData, model.decayFactor, model.timeUnit)
+        if (Try(model.latestModel.update(scaledData, model.decayFactor, model.timeUnit)).isFailure) { println("Free fall!") }
 
         val centers = model.latestModel().clusterCenters
 

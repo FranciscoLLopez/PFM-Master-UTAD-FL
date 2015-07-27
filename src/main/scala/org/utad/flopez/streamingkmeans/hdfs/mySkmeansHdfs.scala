@@ -49,7 +49,7 @@ object mySkmeansHdfs {
     res
   }
 
-  // Clustering test method 1. Predictions. From Jeremy Freeman
+  // Clustering test method 1. Predictions
 
   def clusteringTest(rawData: DStream[String], outputFolder: String, numVarPCA: Int): Unit = {
 
@@ -91,7 +91,7 @@ object mySkmeansHdfs {
     val parseFunction = buildCategoricalAndLabelFunction(rawData)
     val originalAndData = rawData.map(line => (line, parseFunction(line)._2))
     val data = originalAndData.values
-    val calcPCA = calculatePCA(data, 15)
+    val calcPCA = calculatePCA(data, numVarPCA)
     val normalizeFunction = buildNormalizationFunction(calcPCA)
     //val k = stats4K(calcPCA) // Stats wrong way
     val anomalyDetector = buildAnomalyDetector(k, data, normalizeFunction)
