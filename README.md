@@ -2,7 +2,7 @@
 Evaluation exercise for postgraduate Big Data.
 K-Means machine Learning over Kafka's stream. Using Apache Spark and Lightning Graph(on Heroku) server.
 
-## Configuration
+## Configuration 
 Just only spark job needs a configuration.
 
 ### Server locations
