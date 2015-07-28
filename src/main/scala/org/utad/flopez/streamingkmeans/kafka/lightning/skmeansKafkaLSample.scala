@@ -25,7 +25,7 @@ object skmeansKafkaLSample {
       setAppName("skmeansKafkaLSample").set("spark.executor.memory", "1g").
       set("spark.streaming.receiver.maxRate", "10000")
 
-    val ssc = new StreamingContext(conf, Duration(100))
+    val ssc = new StreamingContext(conf, Duration(10))
     val k = 4 // 4 Calculo de Kmeans por R
     val valPCA = 5 // Calculo de variables PCA con el 91% acumulado 
     // Create direct kafka stream with brokers and topics.
@@ -35,6 +35,12 @@ object skmeansKafkaLSample {
     val kafkaStream = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](
       ssc, kafkaParams, topics)
     val rawData = kafkaStream.map(_._2)
+    
+    rawData.foreachRDD{ rdd =>
+      println("Lenght each rdd with 1s: " + rdd.count())
+    }
+    
+    
     val outputFolder = "ds/mySKMSkafkaSample/"
 
     val lgn = Lightning(host = "http://mytest103.herokuapp.com")
@@ -44,7 +50,7 @@ object skmeansKafkaLSample {
     //val scatter2 = lgn.scatter(x, y, label, size, alpha, xaxis, yaxis)
     print("test>>>>>>>>>>>>>>>>    " + scatter.toString())
 
-    val data: DStream[Vector] = rawData.transform(rdd => toVector(rdd))
+    val data: DStream[Vector] = rawData.transform(rdd => toVector2(rdd))
 
     val model = new StreamingKMeans()
       .setK(k)
@@ -92,7 +98,6 @@ object skmeansKafkaLSample {
     if (!original.isEmpty()) {
       val scaledData = new StandardScaler(false, true).fit(original).transform(original)
       val dateString = Calendar.getInstance().getTime.toString.replace(" ", "-").replace(":", "-")
-      //scaledData.saveAsTextFile("ds/mySKMSkafkaSample/" + dateString + "-data")
       scaledData
     } else {
       original

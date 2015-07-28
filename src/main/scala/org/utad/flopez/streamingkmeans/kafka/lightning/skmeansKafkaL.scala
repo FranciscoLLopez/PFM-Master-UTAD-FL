@@ -99,11 +99,10 @@ object skmeansKafkaL {
     val labelsAndData = rdd.map(parseFunction)
     val calcPCA = calculatePCA(labelsAndData.values, numVarPCA)
     val normalizedLabelsAndData = labelsAndData.mapValues(buildNormalizationFunction(calcPCA)).cache()
-    //val normalizedLabelsAndData = labelsAndData.mapValues(buildNormalizationFunction(labelsAndData.values)).cache()
     // the value obtained is wrong
     //val kEstimated = stats4K(normalizedLabelsAndData.values)
 
-    //anomalies(rdd, outputFolder, numVarPCA, k)
+    anomalies(rdd, outputFolder, numVarPCA, k)
     val original = normalizedLabelsAndData.values
     original
 

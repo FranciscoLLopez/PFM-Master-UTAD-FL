@@ -1,4 +1,4 @@
-package org.utad.flopez.stream3ingkmeans.kafka
+package org.utad.flopez.streamingkmeans.kafka
 
 import java.util.Calendar
 import org.apache.spark.SparkConf
