@@ -10,7 +10,7 @@ lightning="http://mytest103.herokuapp.com/"
 
 ## Building
 Everything is built on a MV Cloudera 
-This project are using maven and scala.
+This project is using maven and scala.
 For the last cases we need Kafka. Dependecies with other project named Kafka-UTAD. :)
 
 ## Samples
